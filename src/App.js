@@ -1,16 +1,16 @@
 import React from 'react';
-import Header from './Header';
-import IsLoadingAndError from './IsLoadingAndError';
-import Footer from './Footer';
+import Header from './components/header/Header';
+import IsLoadingAndError from './components/IsLoadingAndError';
+import Footer from './components/Footer';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from "react-router-dom";
-import Login from './Login';
+import Login from './components/login/Login';
 import { withAuth0 } from '@auth0/auth0-react';
-import BestBooks from './BestBooks';
-import Profile from './Profile';
+import BestBooks from './components/book-section/BestBooks';
+import Profile from './components/Profile';
 
 
 

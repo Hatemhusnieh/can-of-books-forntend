@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from "react-router-dom";
-import './Header.css';
+import '../../Header.css';
 import LogoutButton from './LogoutButton';
 import { withAuth0 } from '@auth0/auth0-react';
 
