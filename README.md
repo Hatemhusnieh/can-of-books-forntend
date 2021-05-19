@@ -79,7 +79,7 @@ Actual time needed to complete: 4:30 hours
 ```
 
 ```
-Name of feature: Resource Update a Resource
+Name of feature: Update a Resource
 
 Estimate of time needed to complete: 3 hours
 
