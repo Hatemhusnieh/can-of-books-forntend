@@ -77,3 +77,15 @@ Finish time: 7:30pm
 
 Actual time needed to complete: 4:30 hours
 ```
+
+```
+Name of feature: Resource Update a Resource
+
+Estimate of time needed to complete: 3 hours
+
+Start time: 3:00pm
+
+Finish time: 5:00pm
+
+Actual time needed to complete: 2:00 hours
+```
