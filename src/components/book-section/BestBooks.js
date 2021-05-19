@@ -32,7 +32,7 @@ class MyFavoriteBooks extends React.Component {
       const params = {
         email: user.email,
       }
-      const books = await axios.get(`http://localhost:3001/user`, { params });
+      const books = await axios.get(`${process.env.REACT_APP_BACK_END_URL}/user`, { params });
       // console.log(books);
       this.setState({
         books: books.data,
@@ -63,7 +63,7 @@ class MyFavoriteBooks extends React.Component {
     }
     // console.log(reqData);
 
-    const newBook = await axios.post(`http://localhost:3001/user`, reqData);
+    const newBook = await axios.post(`${process.env.REACT_APP_BACK_END_URL}/user`, reqData);
 
     this.setState({
       books: newBook.data
@@ -72,7 +72,7 @@ class MyFavoriteBooks extends React.Component {
 
 // function to delete books when clicking a button
   deleteBook = async (index)=>{
-    console.log(this.state.books);
+    // console.log(this.state.books);
 
     // console.log(index);
     const arrOfBooks = this.state.books.filter((book, idx)=>{
@@ -88,13 +88,13 @@ class MyFavoriteBooks extends React.Component {
     const query = {
       email: user.email
     }
-    await axios.delete(`http://localhost:3001/user/${index}`, {params: query});
+    await axios.delete(`${process.env.REACT_APP_BACK_END_URL}/user/${index}`, {params: query});
   }
 
   // function to show the update form when clicking:
   showUpdateForm = (idx) => {
     const booksArray = this.state.books.filter((value, index) => {
-      return idx === index
+      return index === idx
     });
     // console.log(this.state.books);
     this.setState({
@@ -115,8 +115,8 @@ updateBooks = async (e) => {
     bookStatus: this.state.bookStatus,
     email: user.email
 }
-console.log(reqBody);
-const updatedBooks = await axios.put(`http://localhost:3001/user/${this.state.index}`, reqBody);
+// console.log(reqBody);
+const updatedBooks = await axios.put(`${process.env.REACT_APP_BACK_END_URL}/user/${this.state.index}`, reqBody);
 this.setState({
   books: updatedBooks.data
 });
