@@ -4,10 +4,10 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import '../../BestBooks.css';
 import axios from 'axios';
 import { withAuth0 } from "@auth0/auth0-react";
-import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
 import BookForm from './BookForm';
-
+import UptadeBookForm from './UptadeBookForm';
+import MyCarousel from './MyCarousel';
 
 class MyFavoriteBooks extends React.Component {
   constructor(props) {
@@ -19,7 +19,8 @@ class MyFavoriteBooks extends React.Component {
       bookName: '',
       bookDescription: '',
       bookStatus: '',
-
+      showUpdatingForm:false,
+      index:0
     }
   }
 
@@ -71,6 +72,8 @@ class MyFavoriteBooks extends React.Component {
 
 // function to delete books when clicking a button
   deleteBook = async (index)=>{
+    console.log(this.state.books);
+
     // console.log(index);
     const arrOfBooks = this.state.books.filter((book, idx)=>{
       return idx !== index;
@@ -87,6 +90,37 @@ class MyFavoriteBooks extends React.Component {
     }
     await axios.delete(`http://localhost:3001/user/${index}`, {params: query});
   }
+
+  // function to show the update form when clicking:
+  showUpdateForm = (idx) => {
+    const booksArray = this.state.books.filter((value, index) => {
+      return idx === index
+    });
+    // console.log(this.state.books);
+    this.setState({
+      index: idx,
+      bookName: booksArray[0].name,
+      bookDescription: booksArray[0].description,
+      bookStatus:booksArray[0].status,
+      showUpdatingForm: true,
+    });
+  }
+// function to update the data in the backend when clicking:
+updateBooks = async (e) => {
+  e.preventDefault();
+  const {user} = this.props.auth0
+  const reqBody = {
+    bookName: this.state.bookName,
+    bookDescription: this.state.bookDescription,
+    bookStatus: this.state.bookStatus,
+    email: user.email
+}
+console.log(reqBody);
+const updatedBooks = await axios.put(`http://localhost:3001/user/${this.state.index}`, reqBody);
+this.setState({
+  books: updatedBooks.data
+});
+}
 
   render() {
     return (
@@ -109,28 +143,28 @@ class MyFavoriteBooks extends React.Component {
                 /><br/><br/>
               </>
               }
-              <Carousel>
-            {this.state.showBooks &&
-                this.state.books.map((book, idx) => {
-                return (
-                  <Carousel.Item key={idx}>
-                  <img
-                    className="d-block w-100"
-                    src='https://via.placeholder.com/600x150/000?text= &bg=373940'
-                    alt='first slide'
-                  />
-                  <Carousel.Caption>
-                    <h1>{book.name}</h1>
-                    <h3>{book.status}</h3>
-                    <p>{book.description}</p>
-                    <Button onClick={()=>this.deleteBook(idx)} variant="danger">Delete!</Button>
-                  </Carousel.Caption>
-                </Carousel.Item>
-                )
-              })
-            }
-            </Carousel>
-
+                 {this.state.showUpdatingForm &&
+              <>
+                <UptadeBookForm
+                  updateBookName={this.updateBookName}
+                  updateBooDescription={this.updateBooDescription}
+                  updateBookStatus={this.updateBookStatus}
+                  addBook={this.addBook}
+                  bookName={this.state.bookName}
+                  bookDescription={this.state.bookDescription}
+                  bookStatus={this.state.bookStatus}
+                  updateBooks={this.updateBooks}
+                /><br/><br/>
+              </>
+              }
+              <>
+                <MyCarousel 
+                showBooks={this.state.showBooks}
+                books={this.state.books}
+                showUpdateForm={this.showUpdateForm}
+                deleteBook={this.deleteBook}
+                />
+              </>
           </Jumbotron>
         </>
       </>
