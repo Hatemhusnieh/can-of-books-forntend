@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 
 export class MyCarousel extends Component {
     render() {
+      const x =`https://via.placeholder.com/600x150/000?text= &bg=373940`;
         return (
             <div>
                  <Carousel>
@@ -13,7 +14,7 @@ export class MyCarousel extends Component {
                   <Carousel.Item key={idx}>
                   <img
                     className="d-block w-100"
-                    src='https://via.placeholder.com/600x150/000?text= &bg=373940'
+                    src= {x}
                     alt='first slide'
                   />
                   <Carousel.Caption>
