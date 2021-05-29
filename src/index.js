@@ -4,6 +4,7 @@ import App from './App';
 import { Auth0Provider } from "@auth0/auth0-react";
 
 // TODO: wrap everything in Auth0
+// account was created with GitHub
 ReactDOM.render(
   <React.StrictMode>
     <Auth0Provider

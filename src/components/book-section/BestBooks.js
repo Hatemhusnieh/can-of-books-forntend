@@ -26,9 +26,10 @@ class MyFavoriteBooks extends React.Component {
 
 
   componentDidMount = async () => {
+    console.clear()
     const { user } = this.props.auth0;
     try {
-      // console.log(user.email);
+      // console.log(this.props.auth0);
       const params = {
         email: user.email,
       }
